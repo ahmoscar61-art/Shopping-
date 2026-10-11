@@ -1,1 +1,1 @@
-build-android.yml
+name: Build APK on: workflow_dispatch jobs: build: runs-on: ubuntu-latest steps: - uses: actions/checkout@v4 - name: Unzip project run: unzip -q ShopManager-Android-GitHub.zip -d project - name: Set up Java uses: actions/setup-java@v4 with distribution: temurin java-version: '17' - name: Build run line by line cd project GRADLEW=$(find-name gradlew -type f | head -1 chmod +x "$GRADLEW" cd "$(dirname "$GRADLEW")" ./gradlew assembleDebug - name Upload APK uses actions/upload-artifact@v4 with name: ShopManager-APK path: project/**/build/outputs/apk/debug/*.apk
